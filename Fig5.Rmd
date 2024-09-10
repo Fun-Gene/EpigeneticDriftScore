@@ -1,0 +1,143 @@
+```{r}
+library(ggcorrplot)
+library(fmsb)
+library(ggsci)
+library(corrplot)
+library(ggplot2)
+library(stringr)
+library(ggsci)
+library(patchwork)
+```
+
+```{r}
+res2=readRDS('Fig5.rds')
+
+p1=ggplot(res2[res2$group=='HDL',]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('HDL')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+p2=ggplot(res2[res2$group=='LDL',]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('LDL')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+p3=ggplot(res2[res2$group %in% c('IDL','VLDL'),]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('IDL+VLDL')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+p4=ggplot(res2[res2$group=='Percentage',]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('Percentage')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+p5=ggplot(res2[res2$group=='Ratio',]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('Ratio')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+p6=ggplot(res2[res2$group=='Others',]) +
+  geom_errorbarh(aes(y=name2,xmin = beta-1.96*se, xmax = beta+1.96*se,color=label),position=position_dodge(0.7), height = 0, size=1.2) +
+  geom_point(aes(x=beta,y=name2,color=label),position=position_dodge(0.7),size=2.5) +
+  scale_color_npg()+
+  xlim(-2,2)+
+  ggtitle('Others')+
+  theme_bw() +
+  theme(axis.text = element_text(size = 15,color="black"),
+        axis.title = element_text(size = 15),
+        strip.text = element_text(size = 15,face="bold"),
+        axis.text.y=element_text(size=15,color="black"),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black"),
+        legend.title = element_blank(),
+        plot.title = element_text(size=18,hjust=0.5)) +
+  geom_vline(xintercept = 0,col = "grey",lty = 2) +
+  ylab("") +
+  scale_y_discrete(labels = function(x) unlist(lapply(str_split(x,"__"), function(y) stringr::str_wrap(y[1], width = 80))))+
+  xlab(stringr::str_wrap('Effect size (95% CI) per unit increase of scores', width = 60)) 
+
+
+p1+p2+p3+p4+p5+p6+ plot_layout(ncol = 2)
+```
