@@ -12,7 +12,7 @@ getWhitePdriftCpG <- function(method, alpha, nSamples, nIterations, age, cpgdata
                                y <- cpgdata[,i]
                                fo <- as.formula(paste0("y~x+", paste0(colnames(covdata), collapse="+")))
 							                 model1 <- lm(fo, data=covdata)
-							                 if (method == "travel") {model2 <- lm((model1$residuals)^2 ~ x + I(x^2))
+							                 if (method == "white") {model2 <- lm((model1$residuals)^2 ~ x + I(x^2))
                                  # Calculate White test heteroskedasticity
                                  r2  <- summary(model2)$r.squared
                                  # White test statistic
