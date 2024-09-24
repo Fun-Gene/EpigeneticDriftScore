@@ -1,6 +1,6 @@
 #############
 setwd(work_dir)
-
+cpg <- readRDS("input_CpG.rds")
 ################################
 # 1. load clock CpG list
 ################################
