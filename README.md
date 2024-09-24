@@ -48,7 +48,7 @@ Each individual is predicted separately with EDS:
 
     source("FUN_EDS_POS.r")
     source("FUN_EDS_NEG.r")
-    input <- readRDS("input.rds")
+    input <- read.csv("input.csv", header = T)
     eds_pos <- EDS_POS(input, ref_stat, ref_drift, ref_coef)
     eds_neg <- EDS_NEG(input, ref_stat, ref_drift, ref_coef)
     
@@ -67,7 +67,7 @@ Install the R package EDS to calculate age-related epigenetic drift levels:
     download EDS_0.1.0.tar.gz
     remotes::install_local("EDS_0.1.0.tar.gz",upgrade = F,dependencies = T)
     library(EDS)
-    input <- readRDS("input.rds")
+    input <- read.csv("input.csv", header = T)
     eds_pos <- EDS_POS(input, ref_stat, ref_drift, ref_coef)
     eds_neg <- EDS_NEG(input, ref_stat, ref_drift, ref_coef)
     
