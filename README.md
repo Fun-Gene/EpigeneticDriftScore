@@ -1,4 +1,4 @@
-# EpigeneticDriftScore
+# EpigeneticDriftScore(EDS)
 DNA methylation; Epigenetic Drift Score; Aging
 
 ![Build](https://github.com/fan-7/EpigeneticDriftScore)
