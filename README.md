@@ -29,29 +29,27 @@ The code is under development
 
 ## Step 1. 
 
-Each CpG site is processed separately with heteroscedasticity test:
+Each CpG site is processed separately with heteroscedasticity test::
+    source("FUN_EpigeneticDrift_WhiteP_robustcoef.r")
+    source("FUN_EpigeneticDrift_BP_rawcoef_test.r")
+    source("FUN_EpigeneticDrift_BP_LMR_test.r")
+    source("FUN_EpigeneticDrift_DGLM_bacon_test.r")
+    getWhitePdriftCpG(method="white", alpha, nSamples, nIterations, age, cpgdata, covdata)
+    getBPdriftCpG_rawcoef(method="BP", cpg, nIterations, alpha)
+    getBPdriftCpG_fit_age_dispersion(y,fm, mf)
+    getBPdriftCpG_runDGLM(x,cpgnames)
 
-source("FUN_EpigeneticDrift_WhiteP_robustcoef.r")
-source("FUN_EpigeneticDrift_BP_rawcoef_test.r")
-source("FUN_EpigeneticDrift_BP_LMR_test.r")
-source("FUN_EpigeneticDrift_DGLM_bacon_test.r")
-getWhitePdriftCpG(method="white", alpha, nSamples, nIterations, age, cpgdata, covdata)
-getBPdriftCpG_rawcoef(method="BP", cpg, nIterations, alpha)
-getBPdriftCpG_fit_age_dispersion(y,fm, mf)
-getBPdriftCpG_runDGLM(x,cpgnames)
 
 ## Step 2.
 
 Each individual is predicted separately with EDS:
-
-source("FUN_EDS_POS.r")
-source("FUN_EDS_NEG.r")
-input <- readRDS("input.rds")
-eds_pos <- EDS_POS(input, ref_stat, ref_drift, ref_coef)
-eds_neg <- EDS_NEG(input, ref_stat, ref_drift, ref_coef)
+    source("FUN_EDS_POS.r")
+    source("FUN_EDS_NEG.r")
+    input <- readRDS("input.rds")
+    eds_pos <- EDS_POS(input, ref_stat, ref_drift, ref_coef)
+    eds_neg <- EDS_NEG(input, ref_stat, ref_drift, ref_coef)
     
 
-## Ｄownload.
 cd into folder where you want to do the analyis
 
 mkdir EpigeneticDriftScore
@@ -70,7 +68,3 @@ TODO
 ## More
 
 More info about Epigenetic drift can be found on our [website](https://github.com/fan-7/EpigeneticDriftScore.git ).  
-
-
-
-
