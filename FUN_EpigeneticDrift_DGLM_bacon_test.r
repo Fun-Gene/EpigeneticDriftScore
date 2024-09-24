@@ -43,32 +43,29 @@ getBPdriftCpG_runDGLM <- function(x,cpgnames)
     }
 
   }
-  return(result_dglm)
+  DGLM_converge <- runDGLM(result_dglm)
+  set.seed(1)
+  # bacon 
+  bc_DGLM<- bacon(DGLM_converge[,3])
+  # Calculate bias and inflation
+  bias <- bias(bc_DGLM)       
+ 
+  inflation <- inflation(bc_DGLM)    
+
+  #Extract the BACON-adjusted t-statistics and p-values
+  tstats_DGLM<-tstat(bc_DGLM)
+  pvals_DGLM <-pval(bc_DGLM)
+  padjs_DGLM <- as.matrix(p.adjust(pvals_DGLM, method="bonf"))
+
+  # Extract BACON-adjusted effectsize.
+  set.seed(1)
+  bc_DGLM_es<-bacon(NULL,DGLM_converge[,1],DGLM_converge[,2])
+  es_DGLM<-es(bc_DGLM_es)
+
+  # Extract BACON-adjusted standard error.
+  set.seed(1)
+  bc_DGLM_se<-bacon(NULL,DGLM_converge[,1],DGLM_converge[,2])
+  se_DGLM<-se(bc_DGLM_se)
+  
+  return(list(result_dglm, bias, inflation, tstats_DGLM, padjs_DGLM, es_DGLM, se_DGLM))
 }
-
-DGLM_converge <- runDGLM(data)
-set.seed(1)
-# bacon 
-bc_DGLM<- bacon(DGLM_converge[,3])
-
-# Calculate bias and inflation
-bias(bc_DGLM)       
-
-inflation(bc_DGLM)    
-
-
-#Extract the BACON-adjusted t-statistics and p-values
-tstats_DGLM<-tstat(bc_DGLM)
-pvals_DGLM <-pval(bc_DGLM)
-padjs_DGLM <- as.matrix(p.adjust(pvals_DGLM, method="bonf"))
-
-# Extract BACON-adjusted effectsize.
-set.seed(1)
-bc_DGLM_es<-bacon(NULL,DGLM_converge[,1],DGLM_converge[,2])
-es_DGLM<-es(bc_DGLM_es)
-
-# Extract BACON-adjusted standard error.
-set.seed(1)
-bc_DGLM_se<-bacon(NULL,DGLM_converge[,1],DGLM_converge[,2])
-se_DGLM<-se(bc_DGLM_se)
-
