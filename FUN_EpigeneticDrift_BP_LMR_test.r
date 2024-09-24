@@ -5,7 +5,7 @@ library(splines)
 
 Cited from this link: https://github.com/JacobBergstedt/MIMETH/blob/main/Scripts/R_Scripts/infer_age_dispersion_include_cells_in_variance_884_samples.R
 
-fit_age_dispersion <- function(y,fm, mf) {
+getBPdriftCpG_fit_age_dispersion <- function(y,fm, mf) {
 						  mf$y <- y
 						  mf <- na.omit(mf)
 				# 1. null
