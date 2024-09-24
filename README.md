@@ -58,12 +58,20 @@ cd into folder where you want to do the analyis
 mkdir EpigeneticDriftScore
 cd EpigeneticDriftScore
 Clone the git repo
-
 git clone https://github.com/fan-7/EpigeneticDriftScore.git
-Create conda environment with all necessary tools installed by:
 
-conda env create -f EpigeneticDrift/envs/evmake.yaml
-Install extra R libraries that are not present in conda or have trouble working:
+## Step 3.
+
+Install the R package EDS to calculate age-related epigenetic drift levels:
+
+    download EDS_0.1.0.tar.gz
+    remotes::install_local("EDS_0.1.0.tar.gz",upgrade = F,dependencies = T)
+    library(EDS)
+    input <- readRDS("input.rds")
+    eds_pos <- EDS_POS(input, ref_stat, ref_drift, ref_coef)
+    eds_neg <- EDS_NEG(input, ref_stat, ref_drift, ref_coef)
+    
+
 
 TODO 
 
