@@ -4,6 +4,7 @@ library(dglm)
 library(tidyverse)
 library(bacon)
 
+Cited from this link: https://github.com/YunfengLUMC/Epigenetic_variability_chrX/blob/main/Script_03_aVMCs_identification_dglm.Rmd
 
 getBPdriftCpG_runDGLM <- function(x,cpgnames)
 {
