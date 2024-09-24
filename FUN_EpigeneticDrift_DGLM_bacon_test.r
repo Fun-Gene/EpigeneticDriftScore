@@ -5,7 +5,7 @@ library(tidyverse)
 library(bacon)
 
 
-runDGLM <- function(x,cpgnames)
+getBPdriftCpG_runDGLM <- function(x,cpgnames)
 {
   result_dglm <- matrix(nrow=length(cpgnames), ncol=9)
   colnames(result_dglm)<-c("cgID","effectsize.linear","std.error.linear","t.linear","p.linear","effectsize.disp","std.error.disp","t.disp","p.disp")
