@@ -29,7 +29,8 @@ The code is under development
 
 ## Step 1. 
 
-Each CpG site is processed separately with heteroscedasticity test::
+Each CpG site is processed separately with heteroscedasticity test:
+
     source("FUN_EpigeneticDrift_WhiteP_robustcoef.r")
     source("FUN_EpigeneticDrift_BP_rawcoef_test.r")
     source("FUN_EpigeneticDrift_BP_LMR_test.r")
@@ -43,6 +44,7 @@ Each CpG site is processed separately with heteroscedasticity test::
 ## Step 2.
 
 Each individual is predicted separately with EDS:
+
     source("FUN_EDS_POS.r")
     source("FUN_EDS_NEG.r")
     input <- readRDS("input.rds")
