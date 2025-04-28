@@ -1,7 +1,7 @@
 # EpigeneticDriftScore(EDS)
 DNA methylation; Epigenetic Drift Score; Aging
 
-![Build]([https://github.com/fan-7/EpigeneticDriftScore](https://github.com/fan-7/EpigeneticDriftScore/blob/main/Figures/Schematic%20representation.png))
+![Schematic representation.png]([https://github.com/fan-7/EpigeneticDriftScore](https://github.com/fan-7/EpigeneticDriftScore/blob/main/Figures/Schematic%20representation.png))
 
 # Introduction
 
