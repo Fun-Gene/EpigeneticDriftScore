@@ -5,9 +5,9 @@ DNA methylation; Epigenetic Drift Score; Aging
 
 # Introduction
 
-Epigenetic drift refers to the accumulation of stochastic changes in DNA methylation over time that is particularly noticeable at specific cytosine-phosphate-guanine (CpG) dinucleotides. Unlike epigenetic clock sites, where changes in DNA methylation linearly associate with age, epigenetic drift sites are characterized by an increase in variance in the methylated positions with age. Biologically, epigenetic 
-drift may reflect the heightened heterogeneity in health status among the elderly population. This epigenetic drift stochasticity may set the pace of aging and provide opportunities for therapies that decelerate the aging process. Conventional methods for identifying drifting CpGs have shown limitations in handling non-linear drifts and lack a robust quantitative assessment score. In response, we introduce a robust white heteroscedasticity method for detecting drift-CpGs. We executed an Epigenome-Wide Drift Study (EWDS) in a discovery cohort, followed by replication studies in independent cross-ethnicity cohorts.  Cross-ethnicity analysis confirmed the universal nature of epigenetic drift, with 99% of drift-CpGs showing increased variance and a small subset exhibiting decreased variance with age. We developed two epigenetic drift scores based on 204 positive and 81 negative drift-CpGs, providing robust measures of epigenome-wide drift. The positive drift score was strongly associated with age, other epigenetic measures, and lipoprotein metabolites. GWAS identified 9q33.1 and 2p21 as susceptibility loci for the positive and negative drift scores, respectively. These findings enhance our understanding of epigenetic drift's role in aging.
+Epigenetic drift refers to the progressive, stochastic accumulation of molecular alterations across the epigenome during aging. These include changes in DNA methylation, histone modifications, chromatin remodeling, and non-coding RNAs. Collectively, such alterations disrupt gene regulatory networks, leading to transcriptional dysregulation, loss of cellular homeostasis, and increased vulnerability to age-related diseases. Among these, DNA methylation drift has emerged as the most extensively characterized component of epigenetic aging. It is typified by increased variance in methylation levels at specific CpG sites-termed drift-CpGs-over chronological age, distinguishing it from the linear age-associated methylation changes at epigenetic clock sites. Importantly, epigenetic drift likely unfolds more gradually across wider temporal windows, capturing interindividual and cellular heterogeneity in a way that reflects biological aging beyond the linear progression captured by clock-based models. This stochastic accumulation is hypothesized to reflect rising intercellular and interindividual heterogeneity with age, potentially capturing biological aging more dynamically than static methylation clocks (Meyer and Schumacher 2024). Understanding and quantifying epigenetic drift may offer novel biomarkers for aging trajectories, disease susceptibility, and therapeutic interventions aimed at mitigating age-associated decline.
 
+We first performed a comprehensive evaluation of four commonly used statistical methods for identifying drift-CpGs, using both computer simulations and empirical population data. We then applied this method to 735,267 CpG sites measured in 3,538 Chinese individuals, systematically identifying a high-confidence set of drift-CpGs. Our replication analysis was conducted in 2,423 individuals from two additional Chinese cohorts and two European cohorts. Both positive and negative drift-CpGs were characterized to reveal complementary biological patterns. We further investigated whether drift-CpGs exhibit cell-type specificity or represent shared signatures of hematopoietic aging by integrating single cell RNA-seq analyses. To quantify individual-level epigenetic drift, we developed an EDS based on a defined subset of drift-CpGs, offering a standardized alternative to entropy-based metrics. Finally, we evaluated the functional relevance of EDS through association analyses with age, lipidomic profiles, and genome-wide genetic variation, uncovering potential mechanistic links between stochastic epigenetic changes and age-related complex traits. 
 
 This repo contains code needed to generate figures for the paper 
 
@@ -15,14 +15,14 @@ This repo contains code needed to generate figures for the paper
 
 The code is under development
 
-## The analysis is performed in 6 steps:
-
-1. Benchmarking of Epigenetic Drift Statistical Method
-2. Development of a Robust Drift-CpG List
-3. Creation of a Genome-Wide Epigenetic Drift Score
-4. Association with Epigenetic Clocks
-4. Association with Lipid Metabolites and Biomarkers
-5. Genetic Basis
+## The analysis consists of 7 steps:
+1. Benchmark the epigenetic drift statistical method to ensure accuracy.
+2. Develop a robust drift-CpG list for epigenetic drift analysis.
+3. Analyze the cellular heterogeneity and transcriptional associations of drift.
+4. Create a genome-wide epigenetic drift score (positive/negative).
+5. Explore the association with epigenetic clocks related to aging.
+6. Examine the links with lipid metabolites and biomarkers.
+7. Investigate the genetic basis influencing epigenetic drift.
 
 R Markdown Notebooks Used for Analysis and Figure Generation
 
