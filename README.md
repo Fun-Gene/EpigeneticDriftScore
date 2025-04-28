@@ -1,5 +1,5 @@
 # EpigeneticDriftScore(EDS)
-DNA methylation; Epigenetic Drift Score; Aging
+DNA methylation; Epigenetic Drift Score; Aging； directional methylation variability; EWDS; EWAS; GWAS
 
 
 ![Schematic representation](https://github.com/user-attachments/assets/0aa95eee-2254-4196-93c7-d360c9e3edcc)
