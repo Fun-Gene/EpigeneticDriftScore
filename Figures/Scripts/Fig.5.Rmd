@@ -1,0 +1,382 @@
+```{r}
+library(ggplot2)
+library(ggsci)
+library(ggthemes)
+library(ggExtra)
+library(ggpmisc)
+library(dplyr)
+
+```
+# Fig 5 a e 
+```{r}
+
+d <- readRDS("Fig.5A.rds")
+sample_num <- c(seq(0,204,20),204)
+
+usedplot <- data.frame(x=sample_num, mean=apply(d, 2, mean), sd=apply(d, 2, sd))
+p_cumu <- ggplot(usedplot, aes(x = x, y = mean)) +
+                geom_line(color="#FF99CC") +
+                labs(x="Number of CpGs", y="Cor ")+
+                geom_ribbon(aes(ymin = mean - sd, ymax = mean + sd ), alpha = 0.3, color="#FF99CC")+
+                theme_bw()+
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15,
+                      face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+              theme(plot.title = element_text(hjust=0.5, face="bold")) +
+              theme(legend.text = element_text(color = "black", size = 15))
+  
+p_cumu
+```
+
+
+```{r}
+d <- readRDS("Fig.5E.rds")
+sample_num <- c(seq(0,81,10),81)
+
+usedplot <- data.frame(x=sample_num, mean=apply(d, 2, mean), sd=apply(d, 2, sd))
+p_cumu <- ggplot(usedplot, aes(x = x, y = mean)) +
+                geom_line(color="#99CCFF") +
+                labs(x="Number of CpGs", y="Cor ")+
+                geom_ribbon(aes(ymin = mean - sd, ymax = mean + sd ), alpha = 0.3, color = "#99CCFF")+
+                theme_bw()+
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15,
+                      face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+              theme(plot.title = element_text(hjust=0.5, face="bold")) +
+              theme(legend.text = element_text(color = "black", size = 15))
+  
+p_cumu
+
+```
+
+# Fig 5 B F  
+```{r}
+usedplot <- readRDS("Fig.5B,F.rds")
+usedplot$sex <- factor(usedplot$Sex, labels=c("Male", "Female"), levels=c(1,2))
+plot_pos <-   usedplot %>%
+              ggplot(aes(x=Age, y=EDS.positive.,colour=sex)) +
+                geom_point()+
+                labs(x="Age", y="EDS_POS")+
+                stat_smooth(method=lm) +
+                scale_color_brewer(palette = "Accent") +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+
+ggMarginal(plot_pos, type="histogram")
+
+plot_neg <-   usedplot %>%
+              ggplot(aes(x=Age, y=EDS.negative.,colour=sex)) +
+                geom_point()+
+                labs(x="Age", y="EDS_NEG")+
+                stat_smooth(method=lm) +
+                scale_color_brewer(palette = "Accent") +
+				scale_y_continuous(breaks=c(0, 0.2,0.4, 0.6, 0.80), limits=c(0.2, 0.8)) +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+					  
+ggMarginal(plot_neg, type="histogram")
+```
+
+# Fig 5C 
+```{r}
+usedplot <- readRDS("Fig.5C.rds")
+usedplot$gender <- factor(usedplot$sex, labels=c("Male", "Female"), levels=c(1,2))
+
+plot <-   usedplot %>%
+              ggplot(aes(x=age, y=pub_score01,colour=gender)) +
+                geom_point()+
+                labs(x="Age", y="EDS_POS")+
+                stat_smooth(method=lm) +
+                scale_color_brewer(palette = "Accent") +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+					  
+ggMarginal(plot, type="histogram")
+```
+
+# Fig 5 g 
+```{r}
+usedplot <- readRDS("Fig.5G.rds")
+usedplot$gender <- factor(usedplot$sex, labels=c("Male", "Female"), levels=c(1,2))
+
+plot_neg <-   usedplot %>%
+              ggplot(aes(x=age, y=nedi01,colour=gender)) +
+                geom_point()+
+                labs(x="Age", y="EDS_NEG")+
+                stat_smooth(method=lm) +
+                scale_color_brewer(palette = "Accent") +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+ggMarginal(plot_neg, type="histogram")
+```
+
+# Fig 5 d 
+```{r}
+usedplot <- readRDS("Fig.5D.rds")
+plot_pos_vsall <-   usedplot %>%
+              ggplot(aes(x=EDS.positive., y=cpg_drift_all)) +
+                geom_point( color="#FF99CC")+
+                labs(x="EDS_POS", y="EDS_Pos_Whole_Genome")+
+                stat_smooth(method=lm ) +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+
+ggMarginal(plot_pos_vsall, type="histogram")
+```
+# Fig 5 H 
+```{r}
+usedplot <- readRDS("Fig.5H.rds")
+plot_neg_vsall <-   usedplot %>%
+              ggplot(aes(x=EDS.negative., y=cpg_drift_all)) +
+                geom_point( color="#99CCFF")+
+                labs(x="EDS_NEG", y="EDS_Neg_Whole_Genome")+
+                stat_smooth(method=lm ) +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+
+ggMarginal(plot_neg_vsall, type="histogram")
+```
+
+# Fig 5 I 
+```{r}
+a <- readRDS("Fig.5I.rds")
+p <- ggVennDiagram(a, label = "count", edge_size = 1,set_color=c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF99CC", "#99CCFF"))+  
+                   scale_fill_distiller(palette = "Pastel1") 
+p              
+```
+# fig 5 J 
+```{r}
+library(ggplot2)
+library(reshape2)
+usedplot <- readRDS("Fig.5J.rds")
+cormat <- round(cor(usedplot),2)
+dist.mat <- dist(cormat)
+clust <- hclust(dist.mat)
+cormat <- cormat[clust$order,rev(clust$order)]
+melted_cormat <-melt(cormat)
+ggheatmap <- ggplot(melted_cormat, aes(Var2, Var1, fill = value))+
+                        geom_tile(color = "white")+
+                        scale_fill_gradient2(low = "#135bc7", high = "red", 
+                        midpoint = 0, limit = c(-0.5,1), space = "Lab", 
+                        name="Pearson\nCorrelation") +
+                        theme_minimal()+ # minimal theme
+                        theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+                        size = 10, hjust = 1))+
+                        coord_fixed()
+# Add correlation values
+heatmap_noadj <- ggheatmap + 
+                 geom_text(aes(Var2, Var1, label = value), color = "black", size = 3) +
+                 theme(
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        panel.grid.major = element_blank(),
+                        panel.border = element_blank(),
+                        panel.background = element_blank(),
+                        axis.ticks = element_blank())
+heatmap_noadj
+
+```
+
+# fig 5 K 
+```{r}
+usedplot <- readRDS("Fig.5K.rds")
+ggheatmap <- ggplot(usedplot, aes(Var2, Var1, fill = value))+
+                   geom_tile(color = "white")+
+                   scale_fill_gradient2(low = "blue", high = "red", midpoint = 0, limit = c(-0.15,1), space = "Lab", name="Pearson\nCorrelation")+
+                   theme_minimal()+ # minimal theme
+                   theme(axis.text.x = element_text(angle = 45, vjust = 1, size = 10, hjust = 1))+
+                   coord_fixed() +
+                   #Add correlation values
+                   geom_text(aes(Var2, Var1, label = value), color = "black", size = 3) +
+                   theme(
+                     axis.title.x = element_blank(),
+                     axis.title.y = element_blank(),
+                     panel.grid.major = element_blank(),
+                     panel.border = element_blank(),
+                     panel.background = element_blank(),
+                     axis.ticks = element_blank())
+ggheatmap
+```
+
+# L
+```{r}
+data=readRDS(file='Fig.5L.rds')
+plot <-   data %>%
+              ggplot(aes(x=eds204, y=cpg_ent))+#,colour=sex)) +
+                geom_point(color="#FF99CC")+
+                labs(x="EDS_POS", y="EDS_POS_Whole_Entropy")+
+                                stat_smooth(method=lm ) +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+#
+ggMarginal(plot, type="histogram")
+```
+# M 
+```{r}
+data=readRDS(file='Fig.5M.rds')
+plot <-   data %>%
+              ggplot(aes(x=eds81, y=cpg_ent_neg)) +
+                geom_point( color="#99CCFF")+
+                labs(x="EDS_NEG", y="EDS_NEG_Whole_Entropy")+
+                stat_smooth(method=lm ) +
+                theme_bw() +
+                theme(axis.ticks.length.x=unit(0.15, "cm"),
+                      axis.ticks.length.y=unit(0.15, "cm"),
+                      axis.text.x = element_text(face="bold", size=15,color = "black"),
+                      axis.text.y = element_text(size=15, face="bold", color = "black"),
+                      axis.title.x =element_text(face="bold", size=15, color = "black", vjust = 0.1),
+                      axis.title.y =element_text(face="bold", size=15, color = "black", vjust = 0.1)) +
+                      theme(plot.title = element_text(hjust=0.5, face="bold")) +
+                      theme(legend.text = element_text(color = "black", size = 15))
+#
+ggMarginal(plot, type="histogram")
+```
+# N 
+```{r}
+data=readRDS(file='Fig.5N.rds')
+
+ggplot(data)+
+    geom_boxplot(aes(x=label,y=stage))+
+    ggtitle('Positve drift CpGs')+
+    xlab('')+
+    ylab('Entropyp')+
+    theme_bw()+
+    theme(plot.title = element_text(size=24,hjust=0.5), 
+        axis.title = element_text(size = 18),
+        axis.text = element_text(size = 16),
+        legend.title=element_blank(),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        axis.line=element_line(color="black"))
+
+t.test(data$stage[data$label=='Baseline'],data$stage[data$label=='Follow-up'],paired=TRUE)
+```
+
+# O
+```{r}
+data=readRDS(file='Fig.5O.rds')
+
+ggplot(data=data,aes(x=x,y=score))+
+    geom_boxplot() +
+    xlab('')+
+    ylab('Mean of delta CpG')+
+    ggtitle('')+
+    geom_hline(aes(yintercept=0), linetype="dashed")+
+    annotate("text", x=0.75, y=0.025, label= 'p=3.6e-10',size=6)+
+    theme_bw() +
+    theme(axis.title = element_text(size = 18),
+          axis.text = element_text(size = 18),
+          panel.grid.major=element_line(color="white"),
+          panel.grid.minor=element_line(color="white"),
+          panel.border=element_blank(),
+          axis.line=element_line(color="black"),
+          legend.title=element_blank(),
+          legend.text = element_text(size=18),
+          plot.title = element_text(hjust = 0.5,size=24))
+
+```
+
+# P
+
+```{r}
+data=readRDS(file='Fig.5P.rds')
+
+ggplot(data=data,aes(x=x,y=score))+
+    geom_boxplot() +
+    xlab('')+
+    ylab('Delta variance of CpG')+
+    ggtitle('')+
+    geom_hline(aes(yintercept=0), linetype="dashed")+
+    annotate("text", x=0.75, y=0.0015, label= 'p=2.8e-9',size=6)+
+    theme_bw() +
+    theme(axis.title = element_text(size = 18),
+          axis.text = element_text(size = 18),
+          panel.grid.major=element_line(color="white"),
+          panel.grid.minor=element_line(color="white"),
+          panel.border=element_blank(),
+          axis.line=element_line(color="black"),
+          legend.title=element_blank(),
+          legend.text = element_text(size=18),
+          plot.title = element_text(hjust = 0.5,size=24))
+          
+```
+
+# Q
+
+```{r}
+data=readRDS(file='Fig.5Q.rds')
+
+ggplot(data=data,aes(x=label,y=EDS))+
+    geom_boxplot() +
+    xlab('')+
+    ylab('EDS_POS')+
+    ggtitle('')+
+    annotate("text", x=0.75, y=0.85, label= 'p=1.2e-12',size=6)+
+    theme_bw() +
+    theme(axis.title = element_text(size = 18),
+          axis.text = element_text(size = 18),
+          panel.grid.major=element_line(color="white"),
+          panel.grid.minor=element_line(color="white"),
+          panel.border=element_blank(),
+          axis.line=element_line(color="black"),
+          legend.title=element_blank(),
+          legend.text = element_text(size=18),
+          plot.title = element_text(hjust = 0.5,size=24))
+```

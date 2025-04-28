@@ -1,0 +1,246 @@
+```{r}
+library(ggplot2)
+library(ggsci)
+library(RColorBrewer)
+library(gg.gap)
+library(ggthemes)
+```
+
+# f
+
+```{r}
+data=readRDS(file='Fig.2F.rds')
+
+ggplot(data = data, mapping = aes(x = Region, y = OR,fill=label)) + 
+  geom_bar(stat = 'identity',position = "dodge") +
+  xlab("") +
+  ylab("Odds Ratio") +
+  scale_fill_manual(values=c('#f56766','#7eaedc'))+
+  scale_y_continuous(breaks=c(-1,0,1,2,3,4,5,6,7,8,9),labels=c(0,1,2,3,4,5,6,7,8,9,10))+
+  theme_bw() +
+  theme(axis.title = element_text(size = 14),
+        axis.text = element_text(size = 13),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        axis.line=element_line(color="black"),
+        axis.text.x = element_text(angle = 60, hjust = 0.5, vjust = 0.5),
+        legend.title = element_blank(),
+        legend.position = 'none')
+```
+
+# g
+
+```{r}
+data=readRDS(file='Fig.2F.rds')
+
+ggplot(data = data, mapping = aes(x = Region, y = OR,fill=label)) + 
+  geom_bar(stat = 'identity',position = "dodge") +
+  xlab("") +
+  ylab("Odds Ratio") +
+  scale_fill_manual(values=c('#f56766','#7eaedc'))+
+  scale_y_continuous(breaks=c(-1,0,1,2,3,4,5,6,7,8,9,10,11),labels=c(0,1,2,3,4,5,6,7,8,9,10,11,12))+
+  theme_bw() +
+  theme(axis.title = element_text(size = 14),
+        axis.text = element_text(size = 13),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        axis.line=element_line(color="black"),
+        axis.text.x = element_text(angle = 60, hjust = 0.5, vjust = 0.5),
+        legend.title = element_blank())
+```
+
+# h
+
+```{r}
+data=readRDS(file='Fig.2H.rds')
+
+p1=ggplot(data = data, mapping = aes(x = Region, y = OR,fill=label)) + 
+  geom_bar(stat = 'identity',position = "dodge") +
+  xlab("") +
+  ylab("Odds Ratio") +
+  scale_fill_lancet()+
+  scale_y_continuous(breaks=c(-1,0,1,2,3,4,9,14,19),labels=c(0,1,2,3,4,5,10,15,20))+
+  theme_bw() +
+  theme(axis.title = element_text(size = 14),
+        axis.text = element_text(size = 13),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        axis.line=element_line(color="black"),
+        axis.text.x = element_text(angle = 60, hjust = 0.5, vjust = 0.5),
+        legend.title = element_blank(),
+        legend.position = 'none')
+
+p1+theme_classic()
+```
+
+# i
+
+```{r}
+data=readRDS(file='Fig.2I.rds')
+
+p1=ggplot(data = data, mapping = aes(x = Region, y = OR,fill=label)) + 
+  geom_bar(stat = 'identity',position = "dodge") +
+  xlab("") +
+  ylab("Odds Ratio") +
+  scale_fill_lancet()+
+  scale_y_continuous(breaks=c(-1,0,1,2,3,9,14,19),labels=c(0,1,2,3,4,10,15,20))+
+  theme_bw() +
+  theme(axis.title = element_text(size = 14),
+        axis.text = element_text(size = 13),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        #panel.border=element_blank(),
+        axis.line=element_line(color="black"),
+        axis.text.x = element_text(angle = 60, hjust = 0.5, vjust = 0.5),
+        legend.title = element_blank(),
+        legend.position = 'none')
+
+p1+theme_classic()
+```
+# J
+
+```{r}  
+d <- readRDS(file='Fig.2J.rds')
+d$posXinit <- d$initial
+d$posXinit[d$direction=="negative"] <- NA
+d$posYterm <- d$terminal
+d$posYterm[d$direction=="negative"] <- NA
+
+d$negXinit <- d$initial
+d$negXinit[d$direction=="positive"] <- NA
+d$negYterm <- d$terminal
+d$negYterm[d$direction=="positive"] <- NA
+cpgcolor=c("#FF99CC", "#99CCFF")
+names(cpgcolor)=c("positive", "negative")
+
+p <- d %>%
+      ggplot() +
+              geom_point(aes(x=posXinit, y=posYterm,color = direction, size=weight)) +
+              geom_point(aes(x=negXinit, y=negYterm,color = direction, size=weight)) +
+              labs(x = "Initial DNA methylation levels", y = "Terminal DNA methylation levels", color=" ",, size = " ", title = "")+
+              scale_colour_manual(values=cpgcolor) +
+              theme_few()+
+              theme(axis.text.x = element_text(vjust = 0.5, hjust=0.5,face="bold", size=15,color = "black"),
+                    axis.text.y = element_text(size=15, face="bold", color = "black"),
+                    axis.title.x =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    axis.title.y =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    plot.title = element_text(hjust=0.5, face="bold"),
+                    panel.grid.major=element_blank(),
+                    panel.grid.minor=element_blank(),
+                    panel.border=element_rect(color="black", fill = NA, size=1))
+p
+```
+
+# K 
+
+```{r}  
+library(ggplot2)
+library(reshape2)
+library(dplyr)
+
+d <- readRDS("Fig.2K.rds")
+type="positive"
+data <- d[d$direction==type,]
+quantiles <- c(0, 0.05, 0.10, 0.90, 0.95, 1)
+
+x_cut <- cut(data$initial, breaks = quantiles, include.lowest = TRUE)
+y_cut <- cut(data$terminal, breaks = quantiles, include.lowest = TRUE)
+
+cross_table <- table(x_cut, y_cut)
+
+print(cross_table)
+
+melted_proportion <- melt(cross_table)
+p <- ggplot(melted_proportion, aes(x = x_cut, y = y_cut, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(x = "Initial ", y = "Terminal", fill = "proportion") +
+  theme_minimal() +
+  theme_few()+
+              theme(axis.text.x = element_text(vjust = 0.5, hjust=0.5,face="bold", size=15,color = "black"),
+                    axis.text.y = element_text(size=15, face="bold", color = "black"),
+                    axis.title.x =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    axis.title.y =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    plot.title = element_text(hjust=0.5, face="bold"),
+                    panel.grid.major=element_blank(),
+                    panel.grid.minor=element_blank(),
+                    panel.border=element_rect(color="black", fill = NA, size=1))  
+p
+
+```
+
+# L 
+
+```{r}  
+library(ggplot2)
+library(reshape2)
+library(dplyr)
+
+d <- readRDS("Fig.2L.rds")
+type="negative"
+data <- d[d$direction==type,]
+quantiles <- c(0, 0.05, 0.10, 0.90, 0.95, 1)
+
+x_cut <- cut(data$initial, breaks = quantiles, include.lowest = TRUE)
+y_cut <- cut(data$terminal, breaks = quantiles, include.lowest = TRUE)
+
+cross_table <- table(x_cut, y_cut)
+
+print(cross_table)
+
+melted_proportion <- melt(cross_table)
+p <- ggplot(melted_proportion, aes(x = x_cut, y = y_cut, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(x = "Initial ", y = "Terminal", fill = "proportion") +
+  theme_minimal() +
+  theme_few()+
+              theme(axis.text.x = element_text(vjust = 0.5, hjust=0.5,face="bold", size=15,color = "black"),
+                    axis.text.y = element_text(size=15, face="bold", color = "black"),
+                    axis.title.x =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    axis.title.y =element_text(face="bold", size=15, color = "black",hjust=0.5),
+                    plot.title = element_text(hjust=0.5, face="bold"),
+                    panel.grid.major=element_blank(),
+                    panel.grid.minor=element_blank(),
+                    panel.border=element_rect(color="black", fill = NA, size=1))  
+p
+
+```
+
+# M  Upset
+```{r}
+upset_list=readRDS(file='Fig2M.rds')
+
+upset(fromList(upset_list),
+      nsets = 100,     
+      nintersects = 15, 
+      order.by = "freq", # 
+      sets=rev(c('CD4T','CD8T','NK','B','Mono')),
+      keep.order = T, 
+      main.bar.color = '#3C5488FF',
+      matrix.color = "#BB0021FF",
+      mb.ratio = c(0.6,0.4),  
+      text.scale = 2)
+
+
+data=data.frame('ID'=c('B','B','NK','NK','CD4T','CD4T','CD8T','CD8T','Mono','Mono'),'num'=c(5055,76,116,5,0,266,755,28,8,5),label=c('Positive Drift','Negative Drift','Positive Drift','Negative Drift','Positive Drift','Negative Drift','Positive Drift','Negative Drift','Positive Drift','Negative Drift'))
+data$ID=factor(data$ID,levels=rev(c('CD4T','CD8T','NK','B','Mono')))
+
+ggplot(data = data) + 
+  geom_col(mapping = aes(x = ID, y = num,fill=label)) +
+  xlab('Cell Type')+
+  ylab('Num')+
+  guides(color=guide_legend(override.aes = list(size=6)))+
+  ggtitle('')+
+  scale_fill_manual(values=c('#3C5488FF','#BB0021FF'))+
+  theme_bw() +
+  theme(axis.title = element_text(size = 22),
+        axis.text = element_text(size = 22),
+        panel.grid.major=element_line(color="white"),
+        panel.grid.minor=element_line(color="white"),
+        axis.line=element_line(color="black"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title=element_blank(),
+        legend.text = element_text(size=18),
+        plot.title = element_text(hjust = 0.5,size=24))
+```
